@@ -1,7 +1,5 @@
 import * as yup from 'yup';
-import _ from 'lodash';
 import watch from './view/view.js';
-import isValidURL from './utils/isValidURL.js';
 
 export default () => {
   const schema = yup.object().shape({
