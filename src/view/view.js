@@ -2,8 +2,9 @@ import onChange from 'on-change';
 
 const renderError = (elements, state) => {
   const { input } = elements.form;
-  const { errors } = state;
-  if (errors.length === 0) {
+  const { error } = state;
+
+  if (!error) {
     input.classList.remove('is-invalid');
   } else {
     input.classList.add('is-invalid');
@@ -16,7 +17,7 @@ const renderError = (elements, state) => {
 export default (elements, state) => {
   const watchedState = onChange(state, (path, value) => {
     switch (path) {
-      case 'errors': {
+      case 'error': {
         renderError(elements, state);
         break;
       }
