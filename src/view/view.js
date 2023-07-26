@@ -1,24 +1,20 @@
 import onChange from 'on-change';
+import renderError from './renderError.js';
+import renderFeeds from './renderFeeds.js';
+import renderPosts from './renderPosts.js';
 
-const renderError = (elements, state) => {
-  const { input } = elements.form;
-  const { error } = state;
-
-  if (!error) {
-    input.classList.remove('is-invalid');
-  } else {
-    input.classList.add('is-invalid');
-  }
-
-  elements.form.formEl.reset();
-  input.focus();
-};
-
-export default (elements, state) => {
+export default (elements, state, i18n) => {
   const watchedState = onChange(state, (path, value) => {
     switch (path) {
       case 'error': {
         renderError(elements, state);
+        break;
+      }
+      case 'processing': {
+        if (value === 'parsed') {
+          renderFeeds(elements, state, i18n);
+          renderPosts(elements, state, i18n);
+        }
         break;
       }
       default:
