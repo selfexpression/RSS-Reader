@@ -76,12 +76,16 @@ export default () => {
           })
           .then(() => parse(watchedState.feeds.urls))
           .then((parsed) => {
-            addingDataParsed(parsed, watchedState);
-            watchedState.processing = 'parsed';
-            watchedState.processing = 'loaded';
+            try {
+              addingDataParsed(parsed, watchedState);
+
+              watchedState.processing = 'parsed';
+              watchedState.processing = 'loaded';
+            } catch (error) {
+              throw new Error(i18n.t('errors.parse'));
+            }
           })
           .catch((error) => {
-            console.log(error)
             watchedState.error = error.message;
           });
       });

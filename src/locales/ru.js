@@ -3,6 +3,9 @@ export default {
     languages: {
       ru: 'Русский',
     },
+    processing: {
+      load: 'RSS успешно загружен',
+    },
     data: {
       feed: {
         header: 'Фиды',
@@ -15,6 +18,7 @@ export default {
     errors: {
       validationURL: 'Ссылка должна быть валидным URL',
       duplicate: 'RSS уже существует',
+      parse: 'Ресурс не содержит валидный RSS',
     },
   },
 };
