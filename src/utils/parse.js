@@ -1,11 +1,7 @@
-import axios from 'axios';
-import makeOrigin from './makeOrigin.js';
+import getAxiosResponse from './getAxiosResponse.js';
 
-export default (urls) => new Promise((resolve, reject) => {
-  const newURL = urls.at(-1);
-  const origin = makeOrigin(newURL);
-  axios.get(origin)
-    .then((response) => response.data.contents)
+export default (url) => new Promise((resolve, reject) => {
+  getAxiosResponse(url)
     .then((contents) => {
       const parser = new DOMParser();
       const parsedData = parser.parseFromString(contents, 'text/xml');

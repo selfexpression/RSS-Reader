@@ -20,7 +20,7 @@ export default (elements, state, i18n) => {
 
     const a = document.createElement('a');
     a.setAttribute('href', item.link);
-    a.setAttribute('data-id', item.postID);
+    a.setAttribute('data-id', item.id);
     a.setAttribute('rel', 'noopener noreferrer');
     a.setAttribute('target', '_blank');
     a.setAttribute('class', 'fw-bold');
@@ -29,7 +29,7 @@ export default (elements, state, i18n) => {
     const button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
-    button.setAttribute('data-id', item.postID);
+    button.setAttribute('data-id', item.id);
     button.setAttribute('data-bs-toggle', 'modal');
     button.setAttribute('data-bs-target', '#modal');
     button.textContent = i18n.t('data.post.button');

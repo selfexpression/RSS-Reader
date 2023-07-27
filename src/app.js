@@ -4,12 +4,14 @@ import watch from './view/view.js';
 import resources from './locales/index.js';
 import parse from './utils/parse.js';
 import addingDataParsed from './utils/addingDataParsed.js';
+import dataUpdate from './utils/dataUpdate.js';
 
 export default () => {
   const state = {
     processing: null,
-    form: {
-      valid: false,
+    dates: {
+      lastPostDate: null,
+      postDates: [],
     },
     feeds: {
       urls: [],
@@ -17,8 +19,12 @@ export default () => {
         feed: [],
         post: [],
       },
+      newFeed: false,
     },
-    error: null,
+    messages: {
+      success: null,
+      error: null,
+    },
   };
 
   const elements = {
@@ -70,23 +76,31 @@ export default () => {
             if (watchedState.feeds.urls.includes(valided.url)) {
               throw new Error(i18n.t('errors.duplicate'));
             }
+
             watchedState.feeds.urls.push(valided.url);
-            watchedState.form.valid = true;
-            watchedState.error = null;
+            watchedState.messages.error = null;
+
+            return valided.url;
           })
-          .then(() => parse(watchedState.feeds.urls))
+          .then((url) => parse(url))
           .then((parsed) => {
             try {
               addingDataParsed(parsed, watchedState);
+              const lastDate = Math.max(...watchedState.dates.postDates);
 
+              watchedState.dates.lastPostDate = lastDate;
               watchedState.processing = 'parsed';
+              watchedState.messages.success = i18n.t('processing.load');
               watchedState.processing = 'loaded';
             } catch (error) {
+              watchedState.feeds.urls.splice(-1, 1);
               throw new Error(i18n.t('errors.parse'));
             }
           })
+          .then(() => dataUpdate(watchedState))
           .catch((error) => {
-            watchedState.error = error.message;
+            watchedState.messages.success = null;
+            watchedState.messages.error = error.message;
           });
       });
     });

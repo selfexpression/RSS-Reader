@@ -1,34 +1,31 @@
 import _ from 'lodash';
 
 export default (parsed, state) => {
-  const feedID = _.uniqueId();
-  const postID = _.uniqueId();
-  const feedTitle = parsed.querySelector('title');
-  const feedDescription = parsed.querySelector('description');
-  const items = parsed.querySelectorAll('item');
+  const feedTitle = parsed.querySelector('title').textContent;
+  const feedDescription = parsed.querySelector('description').textContent;
 
   const feeds = {
-    feedID,
-    title: feedTitle.textContent,
-    description: feedDescription.textContent,
+    id: _.uniqueId(),
+    title: feedTitle,
+    description: feedDescription,
   };
 
+  const items = parsed.querySelectorAll('item');
   const posts = [...items].map((item) => {
-    const itemTitle = item.querySelector('title');
-    const itemDescription = item.querySelector('description');
-    const link = item.querySelector('link');
-    const titleContent = itemTitle.textContent;
-    const descriptionContent = itemDescription.textContent;
-    const linkContent = link.textContent;
+    const itemTitle = item.querySelector('title').textContent;
+    const itemDescription = item.querySelector('description').textContent;
+    const link = item.querySelector('link').textContent;
 
     const postData = {
-      feedID,
-      postID,
-      link: linkContent,
-      title: titleContent,
-      description: descriptionContent,
+      feedID: feeds.id,
+      id: _.uniqueId(),
+      pubDate: Date.now(),
+      link,
+      title: itemTitle,
+      description: itemDescription,
     };
 
+    state.dates.postDates.push(postData.pubDate);
     return postData;
   });
 
