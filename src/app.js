@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import watch from './view/index.js';
 import resources from './locales/index.js';
 import formController from './controllers/formController.js';
-import modalController from './controllers/modalController.js';
+import postsController from './controllers/postsController.js';
 
 export default () => {
   const state = {
@@ -35,6 +35,9 @@ export default () => {
       feedEl: document.querySelector('.feeds'),
       postEl: document.querySelector('.posts'),
     },
+    posts: {
+      postsContainer: document.querySelector('div.posts'),
+    },
   };
 
   const defaultLang = 'ru';
@@ -65,6 +68,6 @@ export default () => {
       const watchedState = watch(elements, state, i18n);
 
       formController(elements, watchedState, schema, i18n);
-      modalController(watchedState);
+      postsController(elements, watchedState);
     });
 };
