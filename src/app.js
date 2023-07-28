@@ -10,7 +10,6 @@ export default () => {
     processing: null,
     dates: {
       lastPostDate: null,
-      postDates: [],
     },
     feeds: {
       urls: [],
@@ -23,6 +22,11 @@ export default () => {
     messages: {
       success: null,
       error: null,
+    },
+    modal: {
+      watchedFeed: null,
+      isWatched: false,
+      modalButton: null,
     },
   };
 
@@ -37,6 +41,11 @@ export default () => {
     },
     posts: {
       postsContainer: document.querySelector('div.posts'),
+    },
+    modal: {
+      modalHeader: document.querySelector('.modal-header'),
+      modalBody: document.querySelector('.modal-body'),
+      modalFooter: document.querySelector('.modal-footer'),
     },
   };
 
