@@ -36,22 +36,23 @@ const dataUpdate = (state) => new Promise((resolve, reject) => {
         const postDescription = lastPost.querySelector('description').textContent;
         const link = lastPost.querySelector('link').textContent;
 
-        const prevPost = state.feeds.data.post
-          .find((item) => Number(item.id) === Math.max(...state.feeds.data.post
+        const prevPost = state.feeds.data.posts
+          .find((item) => Number(item.id) === Math.max(...state.feeds.data.posts
             .map((element) => element.id)));
 
         const feedID = Number(prevPost.feedID);
 
-        const postData = {
-          feedID,
-          id: _.uniqueId(),
-          pubDate: Date.now(),
-          link,
-          title: postTitle,
-          description: postDescription,
-        };
-
         if (state.dates.lastPostDate < postDateTimestamp) {
+          const postData = {
+            feedID,
+            id: _.uniqueId(),
+            pubDate: Date.now(),
+            link,
+            title: postTitle,
+            description: postDescription,
+          };
+
+          state.dates.lastPostDate = postDateTimestamp;
           state.feeds.data.newPosts.push(postData);
         }
 

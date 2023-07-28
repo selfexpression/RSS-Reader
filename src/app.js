@@ -16,8 +16,8 @@ export default () => {
     feeds: {
       urls: [],
       data: {
-        feed: [],
-        post: [],
+        feeds: [],
+        posts: [],
         newPosts: [],
       },
     },
@@ -86,9 +86,7 @@ export default () => {
           .then((parsed) => {
             try {
               addingDataParsed(parsed, watchedState);
-              const lastDate = Math.max(...watchedState.dates.postDates);
 
-              watchedState.dates.lastPostDate = lastDate;
               watchedState.processing = 'parsed';
               watchedState.messages.success = i18n.t('processing.load');
               watchedState.processing = 'loaded';

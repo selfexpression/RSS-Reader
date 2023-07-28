@@ -25,10 +25,10 @@ export default (parsed, state) => {
       description: itemDescription,
     };
 
-    state.dates.postDates.push(postData.pubDate);
+    state.dates.lastPostDate = postData.pubDate;
     return postData;
   });
 
-  state.feeds.data.feed.push(feeds);
-  posts.forEach((post) => state.feeds.data.post.push(post));
+  state.feeds.data.feeds.push(feeds);
+  posts.forEach((post) => state.feeds.data.posts.push(post));
 };
