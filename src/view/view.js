@@ -2,7 +2,6 @@ import onChange from 'on-change';
 import renderError from './renderError.js';
 import renderFeeds from './renderFeeds.js';
 import renderPosts from './renderPosts.js';
-import renderSuccess from './renderSuccess.js';
 import renderNewPost from './renderNewPost.js';
 
 export default (elements, state, i18n) => {
@@ -16,9 +15,6 @@ export default (elements, state, i18n) => {
         if (value === 'parsed') {
           renderFeeds(elements, state, i18n);
           renderPosts(elements, state, i18n);
-        }
-        if (value === 'loaded') {
-          renderSuccess(elements, state);
         }
         break;
       }

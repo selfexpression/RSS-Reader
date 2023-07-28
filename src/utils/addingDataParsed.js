@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import createNewPost from './createNewPost.js';
 
 export default (parsed, state) => {
   const feedTitle = parsed.querySelector('title').textContent;
@@ -12,18 +13,7 @@ export default (parsed, state) => {
 
   const items = parsed.querySelectorAll('item');
   const posts = [...items].map((item) => {
-    const itemTitle = item.querySelector('title').textContent;
-    const itemDescription = item.querySelector('description').textContent;
-    const link = item.querySelector('link').textContent;
-
-    const postData = {
-      feedID: feeds.id,
-      id: _.uniqueId(),
-      pubDate: Date.now(),
-      link,
-      title: itemTitle,
-      description: itemDescription,
-    };
+    const postData = createNewPost(item, feeds.id);
 
     state.dates.lastPostDate = postData.pubDate;
     return postData;
