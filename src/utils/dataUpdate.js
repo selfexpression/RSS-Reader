@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import parse from './parse.js';
 
 const dataUpdate = (state) => new Promise((resolve, reject) => {
@@ -30,9 +31,31 @@ const dataUpdate = (state) => new Promise((resolve, reject) => {
         const pubDate = lastPost.querySelector('pubDate').textContent;
         const dateParse = new Date(pubDate);
         const postDateTimestamp = dateParse.getTime();
-        const checking = state.dates.lastPostDate < postDateTimestamp;
 
-        resolve(checking);
+        const postTitle = lastPost.querySelector('title').textContent;
+        const postDescription = lastPost.querySelector('description').textContent;
+        const link = lastPost.querySelector('link').textContent;
+
+        const prevPost = state.feeds.data.post
+          .find((item) => Number(item.id) === Math.max(...state.feeds.data.post
+            .map((element) => element.id)));
+
+        const feedID = Number(prevPost.feedID);
+
+        const postData = {
+          feedID,
+          id: _.uniqueId(),
+          pubDate: Date.now(),
+          link,
+          title: postTitle,
+          description: postDescription,
+        };
+
+        if (state.dates.lastPostDate < postDateTimestamp) {
+          state.feeds.data.newPosts.push(postData);
+        }
+
+        resolve(lastPost);
       })
       .catch((error) => reject(error))
       .finally(() => setTimeout(dataUpdate, 5000, state));

@@ -3,6 +3,7 @@ import renderError from './renderError.js';
 import renderFeeds from './renderFeeds.js';
 import renderPosts from './renderPosts.js';
 import renderSuccess from './renderSuccess.js';
+import renderNewPost from './renderNewPost.js';
 
 export default (elements, state, i18n) => {
   const watchedState = onChange(state, (path, value) => {
@@ -19,6 +20,10 @@ export default (elements, state, i18n) => {
         if (value === 'loaded') {
           renderSuccess(elements, state);
         }
+        break;
+      }
+      case 'feeds.data.newPosts': {
+        renderNewPost(state, i18n);
         break;
       }
       default:

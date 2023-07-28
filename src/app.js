@@ -18,8 +18,8 @@ export default () => {
       data: {
         feed: [],
         post: [],
+        newPosts: [],
       },
-      newFeed: false,
     },
     messages: {
       success: null,
