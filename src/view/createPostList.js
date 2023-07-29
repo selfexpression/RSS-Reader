@@ -18,6 +18,6 @@ export default (post, i18n) => {
   button.setAttribute('data-bs-target', '#modal');
   button.textContent = i18n.t('data.post.button');
 
-  li.append(a, button);
+  li.replaceChildren(a, button);
   return li;
 };

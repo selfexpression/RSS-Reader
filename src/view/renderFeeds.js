@@ -8,7 +8,7 @@ export default (elements, state, i18n) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'border-0', 'rounded-0');
 
-  state.feeds.data.feeds.forEach((item) => {
+  const lists = state.feeds.data.feeds.map((item) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item', 'border-0', 'border-end-0');
 
@@ -20,12 +20,10 @@ export default (elements, state, i18n) => {
     p.classList.add('m-0', 'small', 'text-black-50');
     p.textContent = item.description;
 
-    li.append(h3, p);
-    ul.append(li);
+    li.replaceChildren(h3, p);
+    return li;
   });
 
+  ul.replaceChildren(...lists);
   renderContainers(elements.feed.feedEl, ul, i18n, type);
-
-  elements.form.formEl.reset();
-  elements.form.input.focus();
 };

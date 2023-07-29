@@ -9,8 +9,7 @@ export default (element, list, i18n, type) => {
   h2.classList.add('card-title', 'h4');
   h2.textContent = i18n.t(`data.${type}.header`);
 
-  cardBody.append(h2);
-
-  cardContainer.append(cardBody, list);
-  element.append(cardContainer);
+  cardBody.replaceChildren(h2);
+  cardContainer.replaceChildren(cardBody, list);
+  element.replaceChildren(cardContainer);
 };

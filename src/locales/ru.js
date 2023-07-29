@@ -4,7 +4,8 @@ export default {
       ru: 'Русский',
     },
     processing: {
-      load: 'RSS успешно загружен',
+      loaded: 'RSS успешно загружен',
+      loading: 'Идёт загрузка...',
     },
     data: {
       feed: {
@@ -19,6 +20,7 @@ export default {
       validationURL: 'Ссылка должна быть валидным URL',
       duplicate: 'RSS уже существует',
       parse: 'Ресурс не содержит валидный RSS',
+      network: 'Ошибка сети',
     },
   },
 };

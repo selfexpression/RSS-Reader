@@ -12,30 +12,28 @@ export default (elements, watchedState, schema, i18n) => {
       .validate(data, { abortEarly: false })
       .then((valided) => {
         if (watchedState.feeds.urls.includes(valided.url)) {
-          throw new Error(i18n.t('errors.duplicate'));
+          throw new Error(i18n.t('duplicate'));
         }
 
+        watchedState.processing = 'loading';
         watchedState.feeds.urls.push(valided.url);
         watchedState.messages.error = null;
-
         return valided.url;
       })
-      .then((url) => parse(url))
+      .then((url) => parse(url, i18n))
       .then((parsed) => {
         try {
           addingDataParsed(parsed, watchedState);
-
-          watchedState.processing = 'parsed';
-          watchedState.messages.success = i18n.t('processing.load');
           watchedState.processing = 'loaded';
         } catch (error) {
+          watchedState.processing = 'filling';
           watchedState.feeds.urls.splice(-1, 1);
-          throw new Error(i18n.t('errors.parse'));
+          throw new Error(i18n.t('parse'));
         }
       })
       .then(() => dataUpdate(watchedState))
       .catch((error) => {
-        watchedState.messages.success = null;
+        watchedState.processing = 'filling';
         watchedState.messages.error = error.message;
       });
   });

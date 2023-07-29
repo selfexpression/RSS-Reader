@@ -7,7 +7,7 @@ import postsController from './controllers/postsController.js';
 
 export default () => {
   const state = {
-    processing: null,
+    processing: 'filling',
     dates: {
       lastPostDate: null,
     },
@@ -20,7 +20,6 @@ export default () => {
       },
     },
     messages: {
-      success: null,
       error: null,
     },
     modal: {
@@ -34,6 +33,7 @@ export default () => {
     form: {
       formEl: document.querySelector('#rss-form'),
       input: document.querySelector('#url-input'),
+      button: document.querySelector('[type="submit"]'),
     },
     feed: {
       feedEl: document.querySelector('.feeds'),
@@ -66,7 +66,7 @@ export default () => {
     .then((i18n) => {
       yup.setLocale({
         string: {
-          url: () => i18n.t('errors.validationURL'),
+          url: () => i18n.t('validationURL'),
         },
       });
 

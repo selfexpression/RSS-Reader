@@ -2,31 +2,27 @@ import onChange from 'on-change';
 import renderError from './renderError.js';
 import renderFeeds from './renderFeeds.js';
 import renderPosts from './renderPosts.js';
-import renderNewPost from './renderNewPost.js';
 import renderWatchedFeed from './renderWatchedFeed.js';
 import renderModalContent from './renderModalContent.js';
-import renderSuccess from './renderSuccess.js';
+import renderProcessing from './renderProcessing.js';
 
 export default (elements, state, i18n) => {
-  const watchedState = onChange(state, (path, value) => {
+  const watchedState = onChange(state, (path, value, prevValue) => {
     switch (path) {
       case 'messages.error': {
-        renderError(elements, state);
-        break;
-      }
-      case 'messages.success': {
-        renderSuccess(elements, state);
+        renderError(elements, value, prevValue, i18n);
         break;
       }
       case 'processing': {
-        if (value === 'parsed') {
-          renderFeeds(elements, state, i18n);
-          renderPosts(elements, state, i18n);
-        }
+        renderProcessing(elements, value, i18n);
         break;
       }
-      case 'feeds.data.newPosts': {
-        renderNewPost(state, i18n);
+      case 'feeds.data.feeds': {
+        renderFeeds(elements, state, i18n);
+        break;
+      }
+      case 'feeds.data.posts': {
+        renderPosts(elements, state, i18n);
         break;
       }
       case 'modal.isWatched': {

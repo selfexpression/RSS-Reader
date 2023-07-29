@@ -9,17 +9,14 @@ const dataUpdate = (state) => new Promise((resolve, reject) => {
         const dates = [...items].map((item) => {
           const pubDate = item.querySelector('pubDate').textContent;
           const dateParse = new Date(pubDate);
-
           return dateParse;
         });
-
-        const freshestDate = (new Date(Math.max(...dates)));
 
         const lastItem = [...items].find((item) => {
           const pubDate = item.querySelector('pubDate').textContent;
           const dateParse = new Date(pubDate);
-
           const lastTimestamp = dateParse.getTime();
+          const freshestDate = (new Date(Math.max(...dates)));
           const freshestTimestamp = freshestDate.getTime();
 
           return lastTimestamp === freshestTimestamp;
@@ -28,18 +25,15 @@ const dataUpdate = (state) => new Promise((resolve, reject) => {
         const pubDate = lastItem.querySelector('pubDate').textContent;
         const dateParse = new Date(pubDate);
         const postDateTimestamp = dateParse.getTime();
-
         const prevPost = state.feeds.data.posts
           .find((item) => Number(item.id) === Math.max(...state.feeds.data.posts
             .map((element) => element.id)));
 
         const feedID = Number(prevPost.feedID);
-
         if (state.dates.lastPostDate < postDateTimestamp) {
           const postData = createNewPost(lastItem, feedID);
-
           state.dates.lastPostDate = postDateTimestamp;
-          state.feeds.data.newPosts.push(postData);
+          state.feeds.data.posts.unshift(postData);
         }
 
         resolve(lastItem);
