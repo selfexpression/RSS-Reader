@@ -9,7 +9,8 @@ export default (elements, state, i18n) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'border-0', 'rounded-0');
 
-  const lists = state.feeds.data.posts.map((item) => createPostList(item, i18n));
+  const sorted = state.feeds.data.posts.sort((a, b) => b.id - a.id);
+  const lists = sorted.map((item) => createPostList(item, i18n));
   ul.replaceChildren(...lists);
 
   renderContainers(elements.feed.postEl, ul, i18n, type);

@@ -1,5 +1,6 @@
 [![Actions Status](https://github.com/selfexpression/frontend-project-11/workflows/hexlet-check/badge.svg)](https://github.com/selfexpression/frontend-project-11/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/07d0defb4f504592735d/maintainability)](https://codeclimate.com/github/selfexpression/frontend-project-11/maintainability)
+[![CI Status](https://github.com/selfexpression/frontend-project-11/actions/workflows/npm-status.yml/badge.svg)](https://github.com/selfexpression/frontend-project-11/actions/workflows/npm-status.yml)
 
 **[RSS Reader](https://frontend-project-11-roan-five.vercel.app/)** - Web application for convenient aggregation and reading RSS feeds. Supports multiple feeds and auto-update for the list of posts.
 

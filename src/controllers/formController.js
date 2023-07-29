@@ -15,9 +15,9 @@ export default (elements, watchedState, schema, i18n) => {
           throw new Error(i18n.t('duplicate'));
         }
 
-        watchedState.processing = 'loading';
         watchedState.feeds.urls.push(valided.url);
         watchedState.messages.error = null;
+        watchedState.processing = 'loading';
         return valided.url;
       })
       .then((url) => parse(url, i18n))
