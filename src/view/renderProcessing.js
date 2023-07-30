@@ -3,18 +3,18 @@ import renderSucccess from './renderSuccess.js';
 
 export default (elements, value, i18n) => {
   switch (value) {
-    case 'filling': {
+    case 'FILLING': {
       elements.form.button.disabled = false;
       elements.form.input.disabled = false;
       break;
     }
-    case 'loading': {
+    case 'LOADING': {
       renderDownloading(elements, i18n);
       elements.form.button.disabled = true;
       elements.form.input.disabled = true;
       break;
     }
-    case 'loaded': {
+    case 'LOADED': {
       renderSucccess(elements, i18n);
       elements.form.button.disabled = false;
       elements.form.input.disabled = false;

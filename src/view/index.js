@@ -8,7 +8,6 @@ import renderProcessing from './renderProcessing.js';
 
 export default (elements, state, i18n) => {
   const watchedState = onChange(state, (path, value, prevValue) => {
-    console.log(path, value)
     switch (path) {
       case 'messages.error': {
         renderError(elements, value, prevValue, i18n);
