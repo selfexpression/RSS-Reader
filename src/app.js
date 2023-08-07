@@ -1,5 +1,4 @@
 import i18next from 'i18next';
-import * as yup from 'yup';
 import watch from './view/index.js';
 import resources from './locales/index.js';
 import formController from './controllers/formController.js';
@@ -7,7 +6,7 @@ import postsController from './controllers/postsController.js';
 
 export default () => {
   const state = {
-    processing: 'filling',
+    processing: 'FILLING',
     dates: {
       lastPostDate: null,
     },
@@ -64,19 +63,9 @@ export default () => {
 
   return i18nInstance
     .then((i18n) => {
-      yup.setLocale({
-        string: {
-          url: () => i18n.t('validationURL'),
-        },
-      });
-
-      const schema = yup.object().shape({
-        url: yup.string().url(),
-      });
-
       const watchedState = watch(elements, state, i18n);
 
-      formController(elements, watchedState, schema, i18n);
+      formController(elements, watchedState, i18n);
       postsController(elements, watchedState);
     });
 };

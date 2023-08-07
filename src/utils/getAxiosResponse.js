@@ -1,8 +1,8 @@
 import axios from 'axios';
-import makeOrigin from './makeOrigin.js';
+import proxify from './proxify.js';
 
 export default (url, i18n) => new Promise((resolve, reject) => {
-  const origin = makeOrigin(url);
+  const origin = proxify(url);
   axios.get(origin)
     .then((response) => resolve(response.data.contents))
     .catch(() => {
