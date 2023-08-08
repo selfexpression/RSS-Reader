@@ -2,13 +2,13 @@ import renderContainers from './renderContainers.js';
 
 export default (elements, state, i18n) => {
   const type = 'feed';
-  const { feedEl } = elements.feed;
+  const { feedEl } = elements;
   feedEl.innerHTML = '';
 
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'border-0', 'rounded-0');
 
-  const lists = state.feeds.data.feeds.map((item) => {
+  const lists = state.data.feeds.map((item) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item', 'border-0', 'border-end-0');
 
@@ -25,5 +25,5 @@ export default (elements, state, i18n) => {
   });
 
   ul.replaceChildren(...lists);
-  renderContainers(elements.feed.feedEl, ul, i18n, type);
+  renderContainers(elements.feedEl, ul, i18n, type);
 };

@@ -1,29 +1,28 @@
-import uniqueId from 'lodash';
+import _ from 'lodash';
 import parse from './parse.js';
 import getAxiosResponse from './getAxiosResponse.js';
 import update from './update.js';
+import createPost from './createPost.js';
 
 export default (url, state) => {
   getAxiosResponse(url)
     .then((data) => {
       const { feeds, posts } = parse(data);
 
-      feeds.id = uniqueId();
+      feeds.id = _.uniqueId();
+      feeds.link = url;
 
-      const postsFromFeed = posts.map((post) => {
-        post.id = uniqueId();
-        post.feedID = feeds.id;
-        return post;
-      });
+      const postsFromFeed = createPost(posts, feeds.id);
 
       state.processing = 'LOADED';
-      state.feeds.data.feeds.push(feeds);
-      postsFromFeed.forEach((post) => state.feeds.data.posts.push(post));
+      state.data.feeds.push(feeds);
+      postsFromFeed.forEach((post) => state.data.posts.push(post));
 
       update(state);
     })
     .catch((error) => {
       state.processing = 'FILLING';
-      state.messages.error = error.message;
+      state.error = error.name;
+      throw error;
     });
 };

@@ -19,7 +19,7 @@ export default {
     errors: {
       validationURL: 'Ссылка должна быть валидным URL',
       duplicate: 'RSS уже существует',
-      parse: 'Ресурс не содержит валидный RSS',
+      parseError: 'Ресурс не содержит валидный RSS',
       network: 'Ошибка сети',
     },
   },

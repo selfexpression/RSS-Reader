@@ -7,20 +7,11 @@ import postsController from './controllers/postsController.js';
 export default () => {
   const state = {
     processing: 'FILLING',
-    dates: {
-      lastPostDate: null,
+    data: {
+      feeds: [],
+      posts: [],
     },
-    feeds: {
-      urls: [],
-      data: {
-        feeds: [],
-        posts: [],
-        newPosts: [],
-      },
-    },
-    messages: {
-      error: null,
-    },
+    error: null,
     modal: {
       watchedFeed: null,
       isWatched: false,
@@ -29,18 +20,12 @@ export default () => {
   };
 
   const elements = {
-    form: {
-      formEl: document.querySelector('#rss-form'),
-      input: document.querySelector('#url-input'),
-      button: document.querySelector('[type="submit"]'),
-    },
-    feed: {
-      feedEl: document.querySelector('.feeds'),
-      postEl: document.querySelector('.posts'),
-    },
-    posts: {
-      postsContainer: document.querySelector('div.posts'),
-    },
+    formEl: document.querySelector('#rss-form'),
+    input: document.querySelector('#url-input'),
+    button: document.querySelector('[type="submit"]'),
+    feedEl: document.querySelector('.feeds'),
+    postEl: document.querySelector('.posts'),
+    postsContainer: document.querySelector('div.posts'),
     modal: {
       modalHeader: document.querySelector('.modal-header'),
       modalBody: document.querySelector('.modal-body'),
@@ -50,22 +35,19 @@ export default () => {
 
   const defaultLang = 'ru';
 
-  const i18nInstance = new Promise((resolve, reject) => {
-    i18next
-      .init({
-        lng: defaultLang,
-        debug: false,
-        resources,
-      })
-      .then(() => resolve(i18next))
-      .catch((error) => reject(error));
-  });
+  const i18nInstance = i18next
+    .init({
+      lng: defaultLang,
+      debug: false,
+      resources,
+    })
+    .then(() => Promise.resolve(i18next));
 
   return i18nInstance
     .then((i18n) => {
       const watchedState = watch(elements, state, i18n);
 
-      formController(elements, watchedState, i18n);
+      formController(elements, watchedState);
       postsController(elements, watchedState);
     });
 };

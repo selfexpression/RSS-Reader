@@ -1,5 +1,5 @@
 export default (elements, watchedstate) => {
-  elements.posts.postsContainer.addEventListener('click', (e) => {
+  elements.postsContainer.addEventListener('click', (e) => {
     if (e.target.hasAttribute('data-id')) {
       watchedstate.modal.watchedFeed = e.target.parentElement;
       watchedstate.modal.isWatched = true;

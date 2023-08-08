@@ -9,34 +9,27 @@ import renderProcessing from './renderProcessing.js';
 export default (elements, state, i18n) => {
   const watchedState = onChange(state, (path, value, prevValue) => {
     switch (path) {
-      case 'messages.error': {
+      case 'error':
         renderError(elements, value, prevValue, i18n);
         break;
-      }
-      case 'processing': {
+      case 'processing':
         renderProcessing(elements, value, i18n);
         break;
-      }
-      case 'feeds.data.feeds': {
+      case 'data.feeds':
         renderFeeds(elements, state, i18n);
         break;
-      }
-      case 'feeds.data.posts': {
+      case 'data.posts':
         renderPosts(elements, state, i18n);
         break;
-      }
-      case 'modal.isWatched': {
+      case 'modal.isWatched':
         renderWatchedFeed(state);
         break;
-      }
-      case 'modal.modalButton': {
+      case 'modal.modalButton':
         renderModalContent(elements, state);
         break;
-      }
       default:
         break;
     }
   });
-
   return watchedState;
 };

@@ -1,4 +1,4 @@
-export default (data) => {
+const parse = (data) => {
   const parser = new DOMParser();
   const parsedData = parser.parseFromString(data, 'text/xml');
 
@@ -14,10 +14,8 @@ export default (data) => {
   const posts = [...items].reduce((acc, item) => {
     const postTitle = item.querySelector('title').textContent;
     const postDescription = item.querySelector('description').textContent;
-    const link = item.querySelector('link').textContent;
 
     const postData = {
-      link,
       title: postTitle,
       description: postDescription,
     };
@@ -26,4 +24,13 @@ export default (data) => {
   }, []);
 
   return { feeds, posts };
+};
+
+export default (data) => {
+  try {
+    return parse(data);
+  } catch (error) {
+    error.name = 'parseError';
+    throw error;
+  }
 };
