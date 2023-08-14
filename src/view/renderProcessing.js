@@ -24,7 +24,26 @@ const renderSucccess = (elements, i18n) => {
   input.focus();
 };
 
-export default (elements, value, i18n) => {
+const renderError = (elements, state, i18n) => {
+  const errorEl = document.querySelector('.feedback');
+
+  elements.input.classList.add('is-invalid');
+  errorEl.classList.remove('text-info', 'text-success');
+  errorEl.classList.add('text-danger');
+
+  const mapping = {
+    validationError: (value) => i18n.t(`errors.${value}`),
+    duplicateError: (value) => i18n.t(`errors.${value}`),
+    RSSError: (value) => i18n.t(`errors.${value}`),
+    AxiosError: (value) => i18n.t(`errors.${value}`),
+  };
+
+  const errorValue = state.error;
+
+  errorEl.textContent = mapping[errorValue](errorValue);
+};
+
+export default (elements, state, value, i18n) => {
   const { button, input } = elements;
 
   switch (value) {
@@ -39,6 +58,11 @@ export default (elements, value, i18n) => {
       break;
     case 'LOADED':
       renderSucccess(elements, i18n);
+      button.disabled = false;
+      input.disabled = false;
+      break;
+    case 'ERROR':
+      renderError(elements, state, i18n);
       button.disabled = false;
       input.disabled = false;
       break;

@@ -17,10 +17,10 @@ export default {
       },
     },
     errors: {
-      validationURL: 'Ссылка должна быть валидным URL',
-      duplicate: 'RSS уже существует',
-      parseError: 'Ресурс не содержит валидный RSS',
-      network: 'Ошибка сети',
+      validationError: 'Ссылка должна быть валидным URL',
+      duplicateError: 'RSS уже существует',
+      RSSError: 'Ресурс не содержит валидный RSS',
+      AxiosError: 'Ошибка сети',
     },
   },
 };
