@@ -104,8 +104,8 @@ const loadingFeed = (url, state) => {
       const postsFromFeed = createPost(posts, feed.id);
 
       state.processing = 'LOADED';
-      state.data.feeds.push(feed);
-      postsFromFeed.forEach((post) => state.data.posts.push(post));
+      state.data.feeds.unshift(feed);
+      postsFromFeed.forEach((post) => state.data.posts.unshift(post));
     })
     .catch((error) => {
       state.error = error.name;
@@ -152,12 +152,12 @@ const formController = (elements, watchedState) => {
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-
     const uploadedRSS = watchedState.data.feeds.map((feed) => feed.link);
+
+    watchedState.processing = 'LOADING';
 
     validate(data, uploadedRSS, watchedState)
       .then((url) => {
-        watchedState.processing = 'LOADING';
         watchedState.error = null;
 
         loadingFeed(url, watchedState);

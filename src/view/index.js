@@ -28,16 +28,14 @@ const renderFeeds = (elements, state, i18n) => {
   const lists = state.data.feeds.map((item) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item', 'border-0', 'border-end-0');
-
     const h3 = document.createElement('h3');
     h3.classList.add('h6', 'm-0');
     h3.textContent = item.title;
-
     const p = document.createElement('p');
     p.classList.add('m-0', 'small', 'text-black-50');
     p.textContent = item.description;
 
-    li.replaceChildren(h3, p);
+    li.append(h3, p);
     return li;
   });
 
@@ -66,7 +64,6 @@ const renderPosts = (elements, state, i18n) => {
   const lists = state.data.posts.map((item) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
-
     const a = document.createElement('a');
     a.setAttribute('href', item.link);
     a.setAttribute('data-id', item.id);
@@ -74,7 +71,6 @@ const renderPosts = (elements, state, i18n) => {
     a.setAttribute('target', '_blank');
     a.setAttribute('class', 'fw-bold');
     a.textContent = item.title;
-
     const button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
@@ -83,11 +79,11 @@ const renderPosts = (elements, state, i18n) => {
     button.setAttribute('data-bs-target', '#modal');
     button.textContent = i18n.t('data.post.button');
 
-    li.replaceChildren(a, button);
+    li.append(a, button);
     return li;
   });
-  ul.replaceChildren(...lists);
 
+  ul.replaceChildren(...lists);
   renderContainers(postEl, ul, i18n, type);
 };
 
